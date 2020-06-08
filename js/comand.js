@@ -1,6 +1,42 @@
 
 $(document).ready(function () {
 
+    // ? Слайдер
+    $('.slider').slick({
+        arrows: false,
+        dots: true,
+        adaptiveHeight: true,
+        slidesToShow: 4,
+        slidesToScroll: 4,
+        speed: 1000,
+        easing: 'ease',
+        infinite: false,
+        responsive: [
+            {
+                breakpoint: 1150,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 3
+                }
+            },
+            {
+                breakpoint: 870,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2
+                }
+            },
+            {
+                breakpoint: 600,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                }
+            }
+        ]
+    });
+
+
     // ? Меняется шапка при скролле, появляется кнопка назад.
     $(window).scroll(function () {
         if ($(window).scrollTop() > 0) {
@@ -114,58 +150,8 @@ $(document).ready(function () {
         myFunc();
     });
 
-    // ? Слайдер
-    $('.slider').slick({
-        arrows: false,
-        dots: true,
-        adaptiveHeight: true,
-        slidesToShow: 4,
-        slidesToScroll: 4,
-        speed: 1000,
-        easing: 'ease',
-        infinite: false,
-        responsive: [
-            {
-                breakpoint: 1150,
-                settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 3
-                }
-            },
-            {
-                breakpoint: 870,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 2
-                }
-            },
-            {
-                breakpoint: 600,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1
-                }
-            }
-        ]
-    });
 
-    // ?Footer адаптив
-    let el = document.querySelectorAll('.footer__nav-title');
-    let i;
 
-    for (i = 0; i < el.length; i++) {
-        el[i].addEventListener('click', function () {
-
-            this.classList.toggle("active");
-
-            var block = this.nextElementSibling;
-            if (block.style.display == "block") {
-                block.style.display = "none";
-            } else {
-                block.style.display = "block";
-            }
-        });
-    }
 
     // ? Модальное окно - оставить заявку.
     let openModal = document.querySelector('.open-modal');
@@ -183,3 +169,26 @@ $(document).ready(function () {
         blackout.classList.add('blackout');
     })
 });
+
+
+
+// ?Footer адаптив
+let el = document.querySelectorAll('.footer__nav-title');
+let i;
+
+for (i = 0; i < el.length; i++) {
+    el[i].addEventListener('click', function () {
+
+        this.classList.toggle("active");
+
+        let block = this.nextElementSibling;
+        let down = this.previousElementSibling;
+        if (block.style.display == "block") {
+            block.style.display = "none";
+            down.style.transform = "rotate(-90deg)";
+        } else {
+            block.style.display = "block";
+            down.style.transform = "rotate(0)";
+        }
+    });
+}
